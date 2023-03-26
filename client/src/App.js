@@ -35,6 +35,7 @@ import SuccessAddArtModal from "./components/SuccessAddArtModal";
 import SuccessUpdateProfileModal from "./components/SuccessUpdateProfileModal";
 import SuccessUploadPostModal from "./components/SuccessUploadPostModal";
 import SuccessMakeOrderModal from "./components/SuccessMakeOrderModal";
+import FailedMakeOrderModal from "./components/FailedMakeOrderModal";
 import SuccessUpdateOrderStatusModal from "./components/SuccessUpdateOrderStatusModal";
 import ImageEnlargerModal from './components/ImageEnlargerModal';
 
@@ -204,6 +205,7 @@ function App() {
   const [modalUpdateProfile, setModalUpdateProfile] = useState(false);
   const [modalUploadPost, setModalUploadPost] = useState(false);
   const [modalMakeOrder, setModalMakeOrder] = useState(false);
+  const [modalFailedMakeOrder, setModalFailedMakeOrder] = useState(false);
   const [modalImageEnlarger, setModalImageEnlarger] = useState(false);
   const [showSuccessUpdateOrderStatusModal, setShowSuccessUpdateOrderStatusModal] = useState(false);
   const [message, setMessage] = useState("");
@@ -234,6 +236,10 @@ function App() {
             show={showSuccessUpdateOrderStatusModal} 
             onHide={() => setShowSuccessUpdateOrderStatusModal(false)}
             message={message}
+          />
+          <FailedMakeOrderModal 
+            show={modalFailedMakeOrder} 
+            onHide={() => setModalFailedMakeOrder(false)} 
           />
           <SuccessMakeOrderModal 
             show={modalMakeOrder} 
@@ -400,6 +406,7 @@ function App() {
             <Route path="/" element={<PrivateRoute />}>
               <Route path="/update-profile" element={ <UpdateProfile  
                 LoggedInUserId={state.user.id} 
+                User={state.user} 
                 setNavbarOn={() => setNavbarOn(true)} 
                 Profiles={Profiles} 
                 SetProfiles={SetProfiles} 
@@ -429,6 +436,7 @@ function App() {
                 Orders={Orders} 
                 SetOrders={SetOrders} 
                 showModalSuccessMakeOrder={() => setModalMakeOrder(true)} 
+                showModalFailedMakeOrder={() => setModalFailedMakeOrder(true)} 
               /> } />
               <Route path="/project/:id" element={ <Project  
                 setNavbarOn={() => setNavbarOn(true)} 
@@ -445,10 +453,6 @@ function App() {
                 setMessageSuccess={() => setMessage("You have successfully approved this order. Thank you.")} 
                 setShowSuccessUpdateOrderStatusCancelModal={() => setShowSuccessUpdateOrderStatusModal(true)} 
                 setMessageCancel={() => setMessage("You have successfully canceled this order. Thank you.")} 
-                setShowSuccessUpdateOrderStatusFinishModal={() => setShowSuccessUpdateOrderStatusModal(true)} 
-                setMessageFinish={() => setMessage("You have successfully finished this order. Thank you.")} 
-                setShowSuccessUpdateOrderStatusPayModal={() => setShowSuccessUpdateOrderStatusModal(true)} 
-                setMessagePay={() => setMessage("You have successfully paid this order. Thank you.")} 
               /> } />
             </Route>
           </Routes>

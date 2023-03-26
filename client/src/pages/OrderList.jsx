@@ -59,7 +59,7 @@ function OrderList(props) {
           return order;
         });
       });
-      props.setMessageSuccess("You have successfully approved this order. Thank you.")
+      props.setMessageSuccess();
       props.setShowSuccessUpdateOrderStatusSuccessModal();
     }
     catch (error) {
@@ -82,48 +82,6 @@ function OrderList(props) {
       });
       props.setMessageCancel()
       props.setShowSuccessUpdateOrderStatusCancelModal();
-    }
-    catch (error) {
-      return
-    }
-  }
-  const handleFinish = async (id) => {
-    try {
-      await API.patch('/order/' + id, {"status":"payment"});
-      const newOrderStatus = {
-        status: "payment",
-      }
-      props.SetOrders(prevOrders => {
-        return prevOrders.map(order => {
-          if (order.id === id) {
-            return { ...order, ...newOrderStatus };
-          }
-          return order;
-        });
-      });
-      props.setMessageFinish()
-      props.setShowSuccessUpdateOrderStatusFinishModal();
-    }
-    catch (error) {
-      return
-    }
-  }
-  const handlePay = async (id) => {
-    try {
-      await API.patch('/order/' + id, {"status":"waiting"});
-      const newOrderStatus = {
-        status: "waiting",
-      }
-      props.SetOrders(prevOrders => {
-        return prevOrders.map(order => {
-          if (order.id === id) {
-            return { ...order, ...newOrderStatus };
-          }
-          return order;
-        });
-      });
-      props.setMessagePay()
-      props.setShowSuccessUpdateOrderStatusPayModal();
     }
     catch (error) {
       return
@@ -179,28 +137,22 @@ function OrderList(props) {
                     <td>{order.start_date}</td>
                     <td>{order.end_date}</td>
                     <td className={
-                      order.status === "pending" ? "!tw-text-custom-warning" : 
+                      order.status === "waiting" ? "!tw-text-custom-warning" : 
                       order.status === "success" ? "!tw-text-custom-success" : 
                       order.status === "cancel" ? "!tw-text-custom-danger" : 
-                      order.status === "payment" ? "!tw-text-custom-success" : 
-                      order.status === "waiting" ? "!tw-text-custom-warning" : 
                       order.status === "complete" ? "!tw-text-custom-primary" : null
                     }>{order.status}</td>
                     <td>{
-                      order.status === "pending" ? "Please wait, your vendor will soon approve your order." : 
+                      order.status === "waiting" ? "Please wait, your vendor will soon approve your order." : 
                       order.status === "success" ? "Your vendor has agreed to take your order, please wait until the order is completed by your vendor." : 
                       order.status === "cancel" ? "Sorry, your vendor did not approve your order. Please find another vendor." : 
-                      order.status === "payment" ? "Your vendor has finished working on your order. Please make payment." : 
-                      order.status === "waiting" ? "Thank you for paying. Your vendor will immediately send their work." : 
                       order.status === "complete" ? `This order has been completed. If you want to contact your vendor, please contact via ${props.Profiles.find(profile => profile.id === order.vendor_id).user.email}` : null
                     }</td>
                     <td className="tw-align-middle">
                       {
-                        order.status === "pending" ? <img src="/images/icon-loading.png" alt={order.status} className="tw-mx-auto" /> : 
+                        order.status === "waiting" ? <img src="/images/icon-loading.png" alt={order.status} className="tw-mx-auto" /> : 
                         order.status === "success" ? <img src="/images/icon-success.png" alt={order.status} className="tw-mx-auto" /> : 
                         order.status === "cancel" ? <img src="/images/icon-cancel.png" alt={order.status} className="tw-mx-auto" /> : 
-                        order.status === "payment" ? <Button onClick={() => handlePay(order.id)} className="!tw-bg-custom-success hover:!tw-bg-custom-success-dark !tw-border-0">Pay</Button> : 
-                        order.status === "waiting" ? <img src="/images/icon-loading.png" alt={order.status} className="tw-mx-auto" /> : 
                         order.status === "complete" ? <Button onClick={() => handleView(order.id)} className="!tw-bg-custom-success hover:!tw-bg-custom-success-dark !tw-border-0">View Project</Button> : null
                       }
                     </td>
@@ -237,33 +189,27 @@ function OrderList(props) {
                     <td>{order.start_date}</td>
                     <td>{order.end_date}</td>
                     <td className={
-                      order.status === "pending" ? "!tw-text-custom-warning" : 
+                      order.status === "waiting" ? "!tw-text-custom-warning" : 
                       order.status === "success" ? "!tw-text-custom-success" : 
                       order.status === "cancel" ? "!tw-text-custom-danger" : 
-                      order.status === "payment" ? "!tw-text-custom-success" : 
-                      order.status === "waiting" ? "!tw-text-custom-warning" : 
                       order.status === "complete" ? "!tw-text-custom-primary" : null
                     }>{order.status}</td>
                     <td>{
-                      order.status === "pending" ? "Please check the details of this order and agree if you wish." : 
+                      order.status === "waiting" ? "Please check the details of this order and agree if you wish." : 
                       order.status === "success" ? "You have agreed to this order. Please give your best so that your client is satisfied." : 
                       order.status === "cancel" ? "You have canceled this order. Thank you for your cooperation." : 
-                      order.status === "payment" ? "Please wait. Your client will start paying soon." : 
-                      order.status === "waiting" ? "Your client has made a payment. Please send your best work." : 
                       order.status === "complete" ? `This order has been completed. If you want to contact your client, please contact via ${order.user.email}` : null
                     }</td>
                     <td className="tw-align-middle">
                       {
-                        order.status === "pending" ? (
+                        order.status === "waiting" ? (
                           <div>
                             <Button onClick={() => handleCancel(order.id)} className="!tw-bg-custom-danger hover:!tw-bg-custom-danger-dark !tw-border-0 !tw-mr-4 !tw-mb-4">Cancel</Button>
                             <Button onClick={() => handleApprove(order.id)} className="!tw-bg-custom-success hover:!tw-bg-custom-success-dark !tw-border-0">Approve</Button>
                           </div>
                         ) : 
-                        order.status === "success" ? <Button onClick={() => handleFinish(order.id)} className="!tw-bg-custom-success hover:!tw-bg-custom-success-dark !tw-border-0">Finish</Button> : 
                         order.status === "cancel" ? <img src="/images/icon-cancel.png" alt={order.status} className="tw-mx-auto" /> : 
-                        order.status === "payment" ? <img src="/images/icon-loading.png" alt={order.status} className="tw-mx-auto" /> : 
-                        order.status === "waiting" ? <Button onClick={() => handleSend(order.id)} className="!tw-bg-custom-success hover:!tw-bg-custom-success-dark !tw-border-0">Send Project</Button> : 
+                        order.status === "success" ? <Button onClick={() => handleSend(order.id)} className="!tw-bg-custom-success hover:!tw-bg-custom-success-dark !tw-border-0">Send Project</Button> : 
                         order.status === "complete" ? <Button onClick={() => handleView(order.id)} className="!tw-bg-custom-success hover:!tw-bg-custom-success-dark !tw-border-0">View Project</Button> : null
                       }
                     </td>

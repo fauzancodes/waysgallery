@@ -10,7 +10,8 @@ type OrderRepository interface {
 	FindOrders() ([]models.Order, error)
 	GetOrder(ID int) (models.Order, error)
 	CreateOrder(Order models.Order) (models.Order, error)
-	UpdateOrder(order models.Order) (models.Order, error)
+	UpdateOrderStatus(order models.Order) (models.Order, error)
+	UpdateOrder(status string, orderId int) (models.Order, error)
 }
 
 func RepositoryOrder(db *gorm.DB) *repository {
@@ -37,8 +38,20 @@ func (r *repository) CreateOrder(order models.Order) (models.Order, error) {
 	return order, err
 }
 
-func (r *repository) UpdateOrder(order models.Order) (models.Order, error) {
+func (r *repository) UpdateOrderStatus(order models.Order) (models.Order, error) {
 	err := r.db.Save(&order).Error
 
 	return order, err
+}
+
+func (r *repository) UpdateOrder(status string, orderId int) (models.Order, error) {
+  var order models.Order
+  r.db.Preload("User").Preload("Project").First(&order, orderId)
+
+	var err error
+  if status != order.Status && status == "success" {
+		order.Status = status
+		err = r.db.Save(&order).Error
+  }
+  return order, err
 }

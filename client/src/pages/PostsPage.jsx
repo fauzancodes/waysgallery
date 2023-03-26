@@ -49,18 +49,6 @@ function PostsPage(props) {
     post.title?.toLowerCase().includes(searchPattern?.toLowerCase())
   );
 
-  // const [PostsState, SetPostsState] = useState(PostsGroup);
-  // const searchHandleOnChange = (e) => {
-  //   const searchPattern = e.target.value;
-  //   const filteredArray = PostsGroup.map((subArray) =>
-  //     subArray.filter((item) =>
-  //       item.title.toLowerCase().includes(searchPattern.toLowerCase()) || 
-  //       item.description.toLowerCase().includes(searchPattern.toLowerCase())
-  //     )
-  //   );
-  //   SetPostsState(filteredArray);
-  // };
-
   const PostsGroup = [[],[],[],[]];
   for (let i = 0; i < Posts.length; i++) {
     if (i % 4 === 0) {
@@ -91,7 +79,6 @@ function PostsPage(props) {
               <img src="/images/icon-search.png" alt="search"/>
             </InputGroup.Text>
             <Form.Control value={searchPattern} onChange={(e) => setSearchPattern(e.target.value)} name="pattern" placeholder="Search" aria-label="Search" aria-describedby="search" className="!tw-bg-custom-secondary !tw-border-0"/>
-            {/* <Form.Control onChange={(e) => searchHandleOnChange(e)} name="pattern" placeholder="Search" aria-label="Search" aria-describedby="search" className="!tw-bg-custom-secondary !tw-border-0"/> */}
           </InputGroup>
         </div>
         <div>

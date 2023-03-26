@@ -11,10 +11,10 @@ export default function UpdateProfile(props) {
 
   const Profile = props.Profiles.find(profile => profile.id === props.LoggedInUserId);
 
-  const [image, setImage] = useState(Profile.image);
+  const [image, setImage] = useState(Profile?.image);
   const [formProfile, setFormProfile] = useState({
-    name: Profile.name,
-    greeting: Profile.greeting,
+    name: props.User.name,
+    greeting: Profile?.greeting,
     image: image,
   });
   const formProfileHandleOnChange = (e) => {
@@ -82,7 +82,7 @@ export default function UpdateProfile(props) {
   return (
     <Container className="tw-min-h-full tw-flex tw-justify-between tw-pt-28">
       {
-        image === "" ? (
+        image === undefined || image === null || image === "" ? (
           <div className="animate__animated animate__slideInLeft tw-border-4 tw-border-custom-secondary-dark hover:tw-border-custom-primary tw-p-5 tw-border-dashed tw-rounded tw-hidden md:tw-flex tw-justify-center tw-items-center tw-w-6/12">
             <img src="/images/icon-camera.png" alt="Profile" className="tw-object-contain"/>
           </div>
@@ -94,7 +94,7 @@ export default function UpdateProfile(props) {
       }
       <Form onSubmit={(e) => formProfileHandleOnSubmit.mutate(e)} className="animate__animated animate__slideInRight !tw-px-4 !tw-pb-4 tw-flex tw-flex-col tw-items-center tw-w-full md:tw-w-fit">
         {
-          image === "" ? (
+          image === undefined || image === null || image === "" ? (
             <label for="profile-picture" className="tw-border-4 tw-border-custom-secondary-dark hover:tw-border-custom-primary tw-p-5 tw-border-dashed tw-rounded-full tw-mb-6 tw-cursor-pointer">
               <img src="/images/icon-camera.png" alt="Profile" className="tw-object-contain"/>
             </label>

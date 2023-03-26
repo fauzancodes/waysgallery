@@ -11,10 +11,12 @@ import (
 
 func OrderRoutes(e *echo.Group) {
 	orderRepository := repositories.RepositoryOrder(postgresql.DB)
-	h := handlers.HandlerOrder(orderRepository)
+	userRepository := repositories.RepositoryUser(postgresql.DB)
+	h := handlers.HandlerOrder(orderRepository, userRepository)
 
 	e.GET("/orders", middleware.Auth(h.FindOrders))
 	e.GET("/order/:id", middleware.Auth(h.GetOrder))
 	e.POST("/order/:vendor_id", middleware.Auth(h.CreateOrder))
-	e.PATCH("/order/:id", middleware.Auth(h.UpdateOrder))
+	e.PATCH("/order/:id", middleware.Auth(h.UpdateOrderStatus))
+	e.POST("/notification", h.Notification)
 }
