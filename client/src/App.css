@@ -1,0 +1,29 @@
+* {
+  color: #000000;
+  box-sizing: border-box;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+  font-family: 'Montserrat', sans-serif;
+}
+html, body {
+  height: 100% !important;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track, ::-webkit-scrollbar-track-horizontal {
+  background-color: #E7E7E7;
+}
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb-horizontal {
+  background-color: #2FC4B2;
+}
+::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb-horizontal:hover {
+  background-color: #259C8E;
+}
+
+#profile-menu::after {
+  content: none;
+}
