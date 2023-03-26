@@ -49,7 +49,7 @@ func (r *repository) UpdateOrder(status string, orderId int) (models.Order, erro
   r.db.Preload("User").Preload("Project").First(&order, orderId)
 
 	var err error
-  if status != order.Status && status == "success" {
+  if status != order.Status && status == "waiting" {
 		order.Status = status
 		err = r.db.Save(&order).Error
   }
