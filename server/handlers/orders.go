@@ -175,11 +175,11 @@ func (h *handlerOrder) Notification(c echo.Context) error {
 		if fraudStatus == "challenge" {
 			h.OrderRepository.UpdateOrder("cancel", order_id)
 		} else if fraudStatus == "accept" {
-			SendMail("success", order)
+			SendMail("waiting", order)
 			h.OrderRepository.UpdateOrder("waiting", order_id)
 		}
 	} else if transactionStatus == "settlement" {
-		SendMail("success", order)
+		SendMail("waiting", order)
 		h.OrderRepository.UpdateOrder("waiting", order_id)
 	} else if transactionStatus == "deny" {
 		h.OrderRepository.UpdateOrder("cancel", order_id)
