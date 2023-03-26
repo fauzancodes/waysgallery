@@ -46,7 +46,7 @@ function PostsPage(props) {
   }
   
   Posts = Posts.filter((post) =>
-    post.title.toLowerCase().includes(searchPattern.toLowerCase())
+    post.title?.toLowerCase().includes(searchPattern?.toLowerCase())
   );
 
   // const [PostsState, SetPostsState] = useState(PostsGroup);

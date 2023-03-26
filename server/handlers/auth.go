@@ -65,6 +65,18 @@ func (h *handlerAuth) Register(c echo.Context) error {
 			Email: data.Email,
 		}
 
+		profile := models.Profile{
+			ID:       registerResponse.ID,
+			Name:     registerResponse.Name,
+			Greeting: "",
+			Image:    "",
+			UserID:   registerResponse.ID,
+		}
+		_, err = h.ProfileRepository.CreateProfile(profile)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
+		}
+
 		return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Message: "Your registration is successful", Data: registerResponse})
 	} else {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Status: http.StatusBadRequest, Message: "This email is already registered"})
@@ -100,21 +112,6 @@ func (h *handlerAuth) Login(c echo.Context) error {
 	if errGenerateToken != nil {
 		log.Println(errGenerateToken)
 		return echo.NewHTTPError(http.StatusUnauthorized)
-	}
-
-	_, err = h.ProfileRepository.GetProfile(user.ID)
-	if err != nil {
-		profile := models.Profile{
-			ID:       user.ID,
-			Name:     user.Name,
-			Greeting: "",
-			Image:    "",
-			UserID:   user.ID,
-		}
-		_, err = h.ProfileRepository.CreateProfile(profile)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
-		}
 	}
 
 	loginResponse := usersdto.LoginResponse{

@@ -73,10 +73,14 @@ function PostDetails(props) {
               </div>
             </div>
           </Link>
-          <div>
-            <Button Button onClick={() => handleFollow(Post.user.id, props.User.id)} className="!tw-bg-custom-secondary hover:!tw-bg-custom-secondary-dark !tw-font-bold !tw-text-black !tw-border-0 tw-w-full md:tw-w-32 md:tw-mb-0">Follow</Button>
-            <Button onClick={() => handleHire(Post.user.id)} className="!tw-bg-custom-primary hover:!tw-bg-custom-primary-dark !tw-font-bold !tw-border-0 tw-w-full md:tw-w-32 tw-my-4 md:tw-my-0 md:tw-ml-4">Hire</Button>
-          </div>
+          {
+            Post.user.id !== props.User.id && (
+              <div>
+                <Button Button onClick={() => handleFollow(Post.user.id, props.User.id)} className="!tw-bg-custom-secondary hover:!tw-bg-custom-secondary-dark !tw-font-bold !tw-text-black !tw-border-0 tw-w-full md:tw-w-32 md:tw-mb-0">Follow</Button>
+                <Button onClick={() => handleHire(Post.user.id)} className="!tw-bg-custom-primary hover:!tw-bg-custom-primary-dark !tw-font-bold !tw-border-0 tw-w-full md:tw-w-32 tw-my-4 md:tw-my-0 md:tw-ml-4">Hire</Button>
+              </div>
+            )
+          }
         </div>
         {
           Post.image_1 === "" ? (
