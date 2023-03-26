@@ -51,7 +51,7 @@ export default function NavbarSection(props) {
               ) : (
                 <>
                   <Button onClick={props.showModalRegister} className="!tw-bg-custom-primary hover:!tw-bg-custom-primary-dark !tw-font-bold !tw-border-0 tw-w-full md:tw-w-32 tw-my-4 md:tw-my-0">Join Now</Button>
-                  <Button onClick={props.showModalLogin} className="!tw-bg-custom-secondary hover:!tw-bg-custom-secondary-dark !tw-font-bold !tw-text-black !tw-border-0 md:tw-ml-4 tw-w-full md:tw-w-32 tw-mb-4 md:tw-mb-0">Login</Button>
+                  <Button onClick={props.showModalLogin} className="!tw-bg-custom-secondary hover:!tw-bg-custom-secondary-dark !tw-font-bold !tw-text-black !tw-border-0 tw-ml-4 tw-w-full md:tw-w-32 md:tw-mb-0">Login</Button>
                 </>
               )
             }
