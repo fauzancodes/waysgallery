@@ -223,7 +223,7 @@ func SendMail(status string, order models.Order) {
 				<li>Start Date : %s</li>
 				<li>End Date : %s</li>
 				<li>Price : %s</li>
-				<li>Status : %s</li>
+				<li>Status : %s approvement from vendor</li>
       </ul>
 			<h4>&copy; 2023. <a href="https://waysgallery.vercel.app">WaysGallery</a>.</h4>
       </body>
