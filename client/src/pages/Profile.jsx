@@ -62,7 +62,7 @@ export default function Profile(props) {
             ) : (
               <img src={Profile.image} alt="Profile Icon" className="!tw-rounded-full !tw-cursor-pointer !tw-object-cover !tw-w-28 !tw-h-28 !tw-bg-custom-secondary tw-mb-4"/>
             )}
-            <h3 className="tw-font-bold">{Profile.name}</h3>
+            <h3 className="tw-font-bold">{Profile?.name}</h3>
             {Profile !== undefined || Profile?.greeting !== "" || Profile?.greeting !== undefined || Profile?.greeting !== null ? (
               <h1 className="tw-font-bold">{Profile?.greeting}</h1>
             ) : null}
