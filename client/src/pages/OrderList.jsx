@@ -94,6 +94,8 @@ function OrderList(props) {
     navigate("/project/" + id)
   }
 
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
   return (
     <>
       <DetailOrderModal 
@@ -134,8 +136,8 @@ function OrderList(props) {
                     <td>{index+1}</td>
                     <td>{props.Profiles.find(profile => profile.id === order.vendor_id).name}</td>
                     <td onClick={() => handleDetailOrderModal(order.title, order.description, order.price)} className="tw-cursor-pointer !tw-text-custom-primary tw-underline">{order.title}</td>
-                    <td>{order.start_date.split("T")[0]}</td>
-                    <td>{order.end_date.split("T")[0]}</td>
+                    <td>{`${new Date(order.start_date.split("T")[0]).getDate()} ${months[new Date(order.start_date.split("T")[0]).getMonth()]} ${new Date(order.start_date.split("T")[0]).getFullYear()}`}</td>
+                    <td>{`${new Date(order.end_date.split("T")[0]).getDate()} ${months[new Date(order.end_date.split("T")[0]).getMonth()]} ${new Date(order.end_date.split("T")[0]).getFullYear()}`}</td>
                     <td className={
                       order.status === "waiting" ? "!tw-text-custom-warning" : 
                       order.status === "success" ? "!tw-text-custom-success" : 
@@ -186,8 +188,8 @@ function OrderList(props) {
                     <td>{index+1}</td>
                     <td>{order.user.name}</td>
                     <td onClick={() => handleDetailOrderModal(order.title, order.description, order.price)} className="tw-cursor-pointer !tw-text-custom-primary tw-underline">{order.title}</td>
-                    <td>{order.start_date}</td>
-                    <td>{order.end_date}</td>
+                    <td>{`${new Date(order.start_date.split("T")[0]).getDate()} ${months[new Date(order.start_date.split("T")[0]).getMonth()]} ${new Date(order.start_date.split("T")[0]).getFullYear()}`}</td>
+                    <td>{`${new Date(order.end_date.split("T")[0]).getDate()} ${months[new Date(order.end_date.split("T")[0]).getMonth()]} ${new Date(order.end_date.split("T")[0]).getFullYear()}`}</td>
                     <td className={
                       order.status === "waiting" ? "!tw-text-custom-warning" : 
                       order.status === "success" ? "!tw-text-custom-success" : 
