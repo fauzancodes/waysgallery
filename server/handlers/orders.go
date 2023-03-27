@@ -206,7 +206,7 @@ func SendMail(status string, order models.Order) {
 		mailer := gomail.NewMessage()
 		mailer.SetHeader("From", CONFIG_SENDER_NAME)
 		mailer.SetHeader("To", "mfauzan.murtadho@gmail.com")
-		mailer.SetHeader("Subject", "WaysBeans Order Payment")
+		mailer.SetHeader("Subject", "WaysGallery Order Payment")
 		mailer.SetBody("text/html", fmt.Sprintf(`<!DOCTYPE html>
     <html lang="en">
       <head>
