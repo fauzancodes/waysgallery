@@ -13,7 +13,7 @@
 
 # misc
 .DS_Store
-./pages/.env.example
+/src/.env.example
 .env.local
 .env.development.local
 .env.test.local
