@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const API = axios.create({
-  baseURL: "https://waysgallery.up.railway.app/api/v1/",
+  baseURL: "http://203.194.114.16:8080/api/v1/",
 });
 
 export const setAuthToken = (token) => {
