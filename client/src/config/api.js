@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const API = axios.create({
-  baseURL: "http://203.194.114.16:8080/waysgallery-api/v1/",
+  baseURL: "https://fauzancodes.site:8080/waysgallery-api/v1/",
 });
 
 export const setAuthToken = (token) => {
