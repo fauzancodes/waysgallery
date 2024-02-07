@@ -12,7 +12,7 @@ type WaysGalleryOrder struct {
 	VendorID    int                             `json:"vendor_id" gorm:"type: int"`
 	ClientID    int                             `json:"client_id" gorm:"type: int"`
 	Status      string                          `json:"status" gorm:"type: varchar(255)"`
-	Project     WaysGalleryProjectOrderResponse `json:"project"`
+	Project     WaysGalleryProjectOrderResponse `json:"project" gorm:"foreignkey:OrderID"`
 	UserID      int                             `json:"-"`
 	User        WaysGalleryUserProfileResponse  `json:"user"`
 	CreatedAt   time.Time                       `json:"-"`

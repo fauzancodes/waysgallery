@@ -8,7 +8,7 @@ type WaysGalleryProfile struct {
 	Greeting      string                          `json:"greeting" gorm:"type: varchar(255)"`
 	Image         string                          `json:"image" gorm:"type: varchar(255)"`
 	ImagePublicID string                          `json:"image_public_id" gorm:"type: varchar(255)"`
-	Arts          []WaysGalleryArtProfileResponse `json:"arts"`
+	Arts          []WaysGalleryArtProfileResponse `json:"arts" gorm:"foreignkey:ProfileID"`
 	UserID        int                             `json:"-"`
 	User          WaysGalleryUserProfileResponse  `json:"user"`
 	CreatedAt     time.Time                       `json:"-"`
@@ -26,7 +26,7 @@ type WaysGalleryProfileUserResponse struct {
 }
 
 func (WaysGalleryProfileUserResponse) TableName() string {
-	return "profiles"
+	return "ways_gallery_profiles"
 }
 
 type WaysGalleryProfileArtResponse struct {

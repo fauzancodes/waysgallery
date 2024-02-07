@@ -34,7 +34,7 @@ type WaysGalleryProjectOrderResponse struct {
 	ImagePublicID4 string `json:"image_public_id_4" gorm:"type: varchar(255)"`
 	Image5         string `json:"image_5" gorm:"type: varchar(255)"`
 	ImagePublicID5 string `json:"image_public_id_5" gorm:"type: varchar(255)"`
-	OrderID        int    `json:"-"`
+	OrderID        int    `json:"-" gorm:"index"`
 }
 
 func (WaysGalleryProjectOrderResponse) TableName() string {
