@@ -7,51 +7,51 @@ import (
 )
 
 type OrderRepository interface {
-	FindOrders() ([]models.Order, error)
-	GetOrder(ID int) (models.Order, error)
-	CreateOrder(Order models.Order) (models.Order, error)
-	UpdateOrderStatus(order models.Order) (models.Order, error)
-	UpdateOrder(status string, orderId int) (models.Order, error)
+	FindOrders() ([]models.WaysGalleryOrder, error)
+	GetOrder(ID int) (models.WaysGalleryOrder, error)
+	CreateOrder(Order models.WaysGalleryOrder) (models.WaysGalleryOrder, error)
+	UpdateOrderStatus(order models.WaysGalleryOrder) (models.WaysGalleryOrder, error)
+	UpdateOrder(status string, orderId int) (models.WaysGalleryOrder, error)
 }
 
 func RepositoryOrder(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) FindOrders() ([]models.Order, error) {
-	var orders []models.Order
+func (r *repository) FindOrders() ([]models.WaysGalleryOrder, error) {
+	var orders []models.WaysGalleryOrder
 	err := r.db.Preload("User").Preload("Project").Find(&orders).Error
 
 	return orders, err
 }
 
-func (r *repository) GetOrder(ID int) (models.Order, error) {
-	var order models.Order
+func (r *repository) GetOrder(ID int) (models.WaysGalleryOrder, error) {
+	var order models.WaysGalleryOrder
 	err := r.db.Preload("User").Preload("Project").First(&order, ID).Error
 
 	return order, err
 }
 
-func (r *repository) CreateOrder(order models.Order) (models.Order, error) {
+func (r *repository) CreateOrder(order models.WaysGalleryOrder) (models.WaysGalleryOrder, error) {
 	err := r.db.Create(&order).Error
 
 	return order, err
 }
 
-func (r *repository) UpdateOrderStatus(order models.Order) (models.Order, error) {
+func (r *repository) UpdateOrderStatus(order models.WaysGalleryOrder) (models.WaysGalleryOrder, error) {
 	err := r.db.Save(&order).Error
 
 	return order, err
 }
 
-func (r *repository) UpdateOrder(status string, orderId int) (models.Order, error) {
-  var order models.Order
-  r.db.Preload("User").Preload("Project").First(&order, orderId)
+func (r *repository) UpdateOrder(status string, orderId int) (models.WaysGalleryOrder, error) {
+	var order models.WaysGalleryOrder
+	r.db.Preload("User").Preload("Project").First(&order, orderId)
 
 	var err error
-  if status != order.Status && status == "waiting" {
+	if status != order.Status && status == "waiting" {
 		order.Status = status
 		err = r.db.Save(&order).Error
-  }
-  return order, err
+	}
+	return order, err
 }

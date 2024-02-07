@@ -39,7 +39,7 @@ func (h *handlerProfile) GetProfile(c echo.Context) error {
 	userLogin := c.Get("userLogin")
 	userId := userLogin.(jwt.MapClaims)["id"].(float64)
 
-	var profile models.Profile
+	var profile models.WaysGalleryProfile
 	profile, err := h.ProfileRepository.GetProfile(int(userId))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
@@ -95,7 +95,7 @@ func (h *handlerProfile) UpdateProfile(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Message: "Profile data updated successfully", Data: convertResponseProfile(data)})
 }
 
-func convertResponseProfile(u models.Profile) profilesdto.ProfileResponse {
+func convertResponseProfile(u models.WaysGalleryProfile) profilesdto.ProfileResponse {
 	return profilesdto.ProfileResponse{
 		ID:            u.ID,
 		Name:          u.Name,

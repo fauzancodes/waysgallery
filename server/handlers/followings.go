@@ -56,7 +56,7 @@ func (h *handlerFollowing) CreateFollowing(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
 
-	following := models.Following{
+	following := models.WaysGalleryFollowing{
 		FollowingID: id,
 		UserID:      int(userId),
 	}
@@ -84,7 +84,7 @@ func (h *handlerFollowing) DeleteFollowing(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Message: "Following data deleted successfully", Data: convertResponseFollowing(data)})
 }
 
-func convertResponseFollowing(u models.Following) followingsdto.FollowingResponse {
+func convertResponseFollowing(u models.WaysGalleryFollowing) followingsdto.FollowingResponse {
 	return followingsdto.FollowingResponse{
 		ID:          u.ID,
 		FollowingID: u.FollowingID,

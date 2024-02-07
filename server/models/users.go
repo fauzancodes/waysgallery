@@ -2,66 +2,66 @@ package models
 
 import "time"
 
-type User struct {
-	ID         int                     `json:"id" gorm:"primary_key:auto_increment"`
-	Name       string                  `json:"name" gorm:"type: varchar(255)"`
-	Email      string                  `json:"email" gorm:"type: varchar(255)"`
-	Password   string                  `json:"-" gorm:"type: varchar(255)"`
-	Profile    ProfileUserResponse     `json:"profile"`
+type WaysGalleryUser struct {
+	ID       int                            `json:"id" gorm:"primary_key:auto_increment"`
+	Name     string                         `json:"name" gorm:"type: varchar(255)"`
+	Email    string                         `json:"email" gorm:"type: varchar(255)"`
+	Password string                         `json:"-" gorm:"type: varchar(255)"`
+	Profile  WaysGalleryProfileUserResponse `json:"profile"`
 	// Followings []FollowingUserResponse `json:"followings"`
 	// Posts      []PostUserResponse      `json:"posts"`
 	// Offers     []OfferUserResponse     `json:"offers"`
 	// Orders     []OrderUserResponse     `json:"orders"`
-	CreatedAt  time.Time               `json:"-"`
-	UpdatedAt  time.Time               `json:"-"`
+	CreatedAt time.Time `json:"-"`
+	UpdatedAt time.Time `json:"-"`
 }
 
-type UserProfileResponse struct {
+type WaysGalleryUserProfileResponse struct {
 	ID    int    `json:"id" gorm:"primary_key:auto_increment"`
 	Name  string `json:"name" gorm:"type: varchar(255)"`
 	Email string `json:"email" gorm:"type: varchar(255)"`
 }
 
-func (UserProfileResponse) TableName() string {
-	return "users"
+func (WaysGalleryUserProfileResponse) TableName() string {
+	return "ways_gallery_users"
 }
 
-type UserFollowingResponse struct {
+type WaysGalleryUserFollowingResponse struct {
 	ID    int    `json:"id" gorm:"primary_key:auto_increment"`
 	Name  string `json:"name" gorm:"type: varchar(255)"`
 	Email string `json:"email" gorm:"type: varchar(255)"`
 }
 
-func (UserFollowingResponse) TableName() string {
+func (WaysGalleryUserFollowingResponse) TableName() string {
 	return "users"
 }
 
-type UserPostResponse struct {
+type WaysGalleryUserPostResponse struct {
 	ID    int    `json:"id" gorm:"primary_key:auto_increment"`
 	Name  string `json:"name" gorm:"type: varchar(255)"`
 	Email string `json:"email" gorm:"type: varchar(255)"`
 }
 
-func (UserPostResponse) TableName() string {
-	return "users"
+func (WaysGalleryUserPostResponse) TableName() string {
+	return "ways_gallery_users"
 }
 
-type UserOfferResponse struct {
+type WaysGalleryUserOfferResponse struct {
 	ID    int    `json:"id" gorm:"primary_key:auto_increment"`
 	Name  string `json:"name" gorm:"type: varchar(255)"`
 	Email string `json:"email" gorm:"type: varchar(255)"`
 }
 
-func (UserOfferResponse) TableName() string {
-	return "users"
+func (WaysGalleryUserOfferResponse) TableName() string {
+	return "ways_gallery_users"
 }
 
-type UserOrderResponse struct {
+type WaysGalleryUserOrderResponse struct {
 	ID    int    `json:"id" gorm:"primary_key:auto_increment"`
 	Name  string `json:"name" gorm:"type: varchar(255)"`
 	Email string `json:"email" gorm:"type: varchar(255)"`
 }
 
-func (UserOrderResponse) TableName() string {
-	return "users"
+func (WaysGalleryUserOrderResponse) TableName() string {
+	return "ways_gallery_users"
 }

@@ -46,7 +46,7 @@ func (h *handlerAuth) Register(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	user := models.User{
+	user := models.WaysGalleryUser{
 		Name:     request.Name,
 		Email:    request.Email,
 		Password: password,
@@ -65,7 +65,7 @@ func (h *handlerAuth) Register(c echo.Context) error {
 			Email: data.Email,
 		}
 
-		profile := models.Profile{
+		profile := models.WaysGalleryProfile{
 			ID:       registerResponse.ID,
 			Name:     registerResponse.Name,
 			Greeting: "",
@@ -89,7 +89,7 @@ func (h *handlerAuth) Login(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	user := models.User{
+	user := models.WaysGalleryUser{
 		Email:    request.Email,
 		Password: request.Password,
 	}

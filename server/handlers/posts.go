@@ -39,7 +39,7 @@ func (h *handlerPost) FindPosts(c echo.Context) error {
 func (h *handlerPost) GetPost(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	var post models.Post
+	var post models.WaysGalleryPost
 	post, err := h.PostRepository.GetPost(id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
@@ -63,7 +63,7 @@ func (h *handlerPost) CreatePost(c echo.Context) error {
 		Image5:      filepath[4],
 	}
 
-	var post models.Post
+	var post models.WaysGalleryPost
 
 	var ctx = context.Background()
 	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
@@ -233,7 +233,7 @@ func (h *handlerPost) UpdatePost(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Message: "Post data updated successfully", Data: convertResponsePost(data)})
 }
 
-func convertResponsePost(u models.Post) postsdto.PostResponse {
+func convertResponsePost(u models.WaysGalleryPost) postsdto.PostResponse {
 	return postsdto.PostResponse{
 		ID:             u.ID,
 		Title:          u.Title,

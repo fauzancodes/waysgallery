@@ -2,34 +2,34 @@ package models
 
 import "time"
 
-type Profile struct {
-	ID            int                  `json:"id" gorm:"primary_key:auto_increment"`
-	Name          string               `json:"name" gorm:"type: varchar(255)"`
-	Greeting      string               `json:"greeting" gorm:"type: varchar(255)"`
-	Image         string               `json:"image" gorm:"type: varchar(255)"`
-	ImagePublicID string               `json:"image_public_id" gorm:"type: varchar(255)"`
-	Arts          []ArtProfileResponse `json:"arts"`
-	UserID        int                  `json:"-"`
-	User          UserProfileResponse  `json:"user"`
-	CreatedAt     time.Time            `json:"-"`
-	UpdatedAt     time.Time            `json:"-"`
+type WaysGalleryProfile struct {
+	ID            int                             `json:"id" gorm:"primary_key:auto_increment"`
+	Name          string                          `json:"name" gorm:"type: varchar(255)"`
+	Greeting      string                          `json:"greeting" gorm:"type: varchar(255)"`
+	Image         string                          `json:"image" gorm:"type: varchar(255)"`
+	ImagePublicID string                          `json:"image_public_id" gorm:"type: varchar(255)"`
+	Arts          []WaysGalleryArtProfileResponse `json:"arts"`
+	UserID        int                             `json:"-"`
+	User          WaysGalleryUserProfileResponse  `json:"user"`
+	CreatedAt     time.Time                       `json:"-"`
+	UpdatedAt     time.Time                       `json:"-"`
 }
 
-type ProfileUserResponse struct {
-	ID            int                  `json:"id" gorm:"primary_key:auto_increment"`
-	Name          string               `json:"name" gorm:"type: varchar(255)"`
-	Greeting      string               `json:"greeting" gorm:"type: varchar(255)"`
-	Image         string               `json:"image" gorm:"type: varchar(255)"`
-	ImagePublicID string               `json:"image_public_id" gorm:"type: varchar(255)"`
-	Arts          []ArtProfileResponse `json:"arts" gorm:"foreignKey:ProfileID"`
-	UserID        int                  `json:"-"`
+type WaysGalleryProfileUserResponse struct {
+	ID            int                             `json:"id" gorm:"primary_key:auto_increment"`
+	Name          string                          `json:"name" gorm:"type: varchar(255)"`
+	Greeting      string                          `json:"greeting" gorm:"type: varchar(255)"`
+	Image         string                          `json:"image" gorm:"type: varchar(255)"`
+	ImagePublicID string                          `json:"image_public_id" gorm:"type: varchar(255)"`
+	Arts          []WaysGalleryArtProfileResponse `json:"arts" gorm:"foreignKey:ProfileID"`
+	UserID        int                             `json:"-"`
 }
 
-func (ProfileUserResponse) TableName() string {
+func (WaysGalleryProfileUserResponse) TableName() string {
 	return "profiles"
 }
 
-type ProfileArtResponse struct {
+type WaysGalleryProfileArtResponse struct {
 	ID            int    `json:"id" gorm:"primary_key:auto_increment"`
 	Name          string `json:"name" gorm:"type: varchar(255)"`
 	Greeting      string `json:"greeting" gorm:"type: varchar(255)"`
@@ -37,6 +37,6 @@ type ProfileArtResponse struct {
 	ImagePublicID string `json:"image_public_id" gorm:"type: varchar(255)"`
 }
 
-func (ProfileArtResponse) TableName() string {
-	return "profiles"
+func (WaysGalleryProfileArtResponse) TableName() string {
+	return "ways_gallery_profiles"
 }

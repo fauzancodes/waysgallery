@@ -8,13 +8,13 @@ import (
 
 func RunMigration() {
 	err := postgresql.DB.AutoMigrate(
-		&models.User{},
-		&models.Profile{},
-		&models.Art{},
-		&models.Following{},
-		&models.Post{},
-		&models.Order{},
-		&models.Project{},
+		&models.WaysGalleryUser{},
+		&models.WaysGalleryProfile{},
+		&models.WaysGalleryArt{},
+		&models.WaysGalleryFollowing{},
+		&models.WaysGalleryPost{},
+		&models.WaysGalleryOrder{},
+		&models.WaysGalleryProject{},
 	)
 
 	if err != nil {

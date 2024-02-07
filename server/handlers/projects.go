@@ -37,7 +37,7 @@ func (h *handlerProject) FindProjects(c echo.Context) error {
 func (h *handlerProject) GetProject(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	var project models.Project
+	var project models.WaysGalleryProject
 	project, err := h.ProjectRepository.GetProject(id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
@@ -59,7 +59,7 @@ func (h *handlerProject) CreateProject(c echo.Context) error {
 		Image5:      filepath[4],
 	}
 
-	var project models.Project
+	var project models.WaysGalleryProject
 
 	var ctx = context.Background()
 	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
@@ -124,7 +124,7 @@ func (h *handlerProject) CreateProject(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Message: "Project data created successfully", Data: convertResponseProject(project)})
 }
 
-func convertResponseProject(u models.Project) projectsdto.ProjectResponse {
+func convertResponseProject(u models.WaysGalleryProject) projectsdto.ProjectResponse {
 	return projectsdto.ProjectResponse{
 		ID:             u.ID,
 		Description:    u.Description,

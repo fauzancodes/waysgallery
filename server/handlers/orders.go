@@ -86,7 +86,7 @@ func (h *handlerOrder) CreateOrder(c echo.Context) error {
 		}
 	}
 
-	order := models.Order{
+	order := models.WaysGalleryOrder{
 		ID:          orderId,
 		Title:       request.Title,
 		Description: request.Description,
@@ -192,7 +192,7 @@ func (h *handlerOrder) Notification(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Message: "Payment finished", Data: notificationPayload})
 }
 
-func SendMail(status string, order models.Order) {
+func SendMail(status string, order models.WaysGalleryOrder) {
 
 	if status != order.Status && (status == "waiting") {
 		var CONFIG_SMTP_HOST = "smtp.gmail.com"
@@ -245,7 +245,7 @@ func SendMail(status string, order models.Order) {
 	}
 }
 
-func convertResponseOrder(u models.Order) ordersdto.OrderResponse {
+func convertResponseOrder(u models.WaysGalleryOrder) ordersdto.OrderResponse {
 	return ordersdto.OrderResponse{
 		ID:          u.ID,
 		Title:       u.Title,

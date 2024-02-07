@@ -60,7 +60,7 @@ func (h *handlerArt) CreateArt(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
 
-	art := models.Art{
+	art := models.WaysGalleryArt{
 		Image:         resp.SecureURL,
 		ImagePublicID: resp.PublicID,
 		ProfileID:     int(userId),
@@ -89,7 +89,7 @@ func (h *handlerArt) DeleteArt(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Message: "Art data deleted successfully", Data: convertResponseArt(data)})
 }
 
-func convertResponseArt(u models.Art) artsdto.ArtResponse {
+func convertResponseArt(u models.WaysGalleryArt) artsdto.ArtResponse {
 	return artsdto.ArtResponse{
 		ID:            u.ID,
 		Image:         u.Image,
