@@ -29,7 +29,7 @@ func main() {
 	postgresql.DatabaseInit()
 	database.RunMigration()
 
-	routes.RouteInit(e.Group("/api/v1"))
+	routes.RouteInit(e.Group("/waysgallery-api/v1"))
 
 	e.Static("/uploads", "./uploads")
 
