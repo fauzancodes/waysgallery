@@ -20,11 +20,13 @@ func UploadFiles(next echo.HandlerFunc) echo.HandlerFunc {
 
 		if err != nil {
 			if method == "PATCH" && err.Error() == "http: no such file" {
-				c.Set("dataFile", "")
+				c.Set("cloudinarySecureURL", "")
+				c.Set("cloudinaryPublicID", "")
 				return next(c)
 			}
 			if method == "POST" && err.Error() == "http: no such file" {
-				c.Set("dataFile", "")
+				c.Set("cloudinarySecureURL", "")
+				c.Set("cloudinaryPublicID", "")
 				return next(c)
 			}
 			return c.JSON(http.StatusBadRequest, err)
