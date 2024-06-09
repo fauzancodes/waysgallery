@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 	projectsdto "waysgallery/dto/projects"
@@ -65,18 +64,14 @@ func (h *handlerProject) CreateProject(c echo.Context) error {
 		project.Description = request.Description
 	}
 
-	var cloudinarySecureURL []string
-	var cloudinaryPublicID []string
-	json.Unmarshal([]byte(c.Get("cloudinarySecureURL").(string)), &cloudinarySecureURL)
-	json.Unmarshal([]byte(c.Get("cloudinaryPublicID").(string)), &cloudinaryPublicID)
 	if request.Image1 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 		// resp, err := cld.Upload.Upload(ctx, filepath[0], uploader.UploadParams{Folder: "waysgallery"})
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		project.Image1 = cloudinarySecureURL[0]
-		project.ImagePublicID1 = cloudinaryPublicID[0]
+		project.Image1 = c.Get("cloudinarySecureURL").([]string)[0]
+		project.ImagePublicID1 = c.Get("cloudinaryPublicID").([]string)[0]
 	}
 	if request.Image2 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -84,8 +79,8 @@ func (h *handlerProject) CreateProject(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		project.Image2 = cloudinarySecureURL[1]
-		project.ImagePublicID2 = cloudinaryPublicID[1]
+		project.Image2 = c.Get("cloudinarySecureURL").([]string)[1]
+		project.ImagePublicID2 = c.Get("cloudinaryPublicID").([]string)[1]
 	}
 	if request.Image3 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -93,8 +88,8 @@ func (h *handlerProject) CreateProject(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		project.Image3 = cloudinarySecureURL[2]
-		project.ImagePublicID3 = cloudinaryPublicID[2]
+		project.Image3 = c.Get("cloudinarySecureURL").([]string)[2]
+		project.ImagePublicID3 = c.Get("cloudinaryPublicID").([]string)[2]
 	}
 	if request.Image4 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -102,8 +97,8 @@ func (h *handlerProject) CreateProject(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		project.Image4 = cloudinarySecureURL[3]
-		project.ImagePublicID4 = cloudinaryPublicID[3]
+		project.Image4 = c.Get("cloudinarySecureURL").([]string)[3]
+		project.ImagePublicID4 = c.Get("cloudinaryPublicID").([]string)[3]
 	}
 	if request.Image5 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -111,8 +106,8 @@ func (h *handlerProject) CreateProject(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		project.Image5 = cloudinarySecureURL[4]
-		project.ImagePublicID5 = cloudinaryPublicID[4]
+		project.Image5 = c.Get("cloudinarySecureURL").([]string)[4]
+		project.ImagePublicID5 = c.Get("cloudinaryPublicID").([]string)[4]
 	}
 	project.OrderID = id
 

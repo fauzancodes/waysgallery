@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 	"time"
@@ -72,18 +71,14 @@ func (h *handlerPost) CreatePost(c echo.Context) error {
 		post.Description = request.Description
 	}
 
-	var cloudinarySecureURL []string
-	var cloudinaryPublicID []string
-	json.Unmarshal([]byte(c.Get("cloudinarySecureURL").(string)), &cloudinarySecureURL)
-	json.Unmarshal([]byte(c.Get("cloudinaryPublicID").(string)), &cloudinaryPublicID)
 	if request.Image1 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 		// resp, err := cld.Upload.Upload(ctx, filepath[0], uploader.UploadParams{Folder: "waysgallery"})
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image1 = cloudinarySecureURL[0]
-		post.ImagePublicID1 = cloudinaryPublicID[0]
+		post.Image1 = c.Get("cloudinarySecureURL").([]string)[0]
+		post.ImagePublicID1 = c.Get("cloudinaryPublicID").([]string)[0]
 	}
 	if request.Image2 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -91,8 +86,8 @@ func (h *handlerPost) CreatePost(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image2 = cloudinarySecureURL[1]
-		post.ImagePublicID2 = cloudinaryPublicID[1]
+		post.Image2 = c.Get("cloudinarySecureURL").([]string)[1]
+		post.ImagePublicID2 = c.Get("cloudinaryPublicID").([]string)[1]
 	}
 	if request.Image3 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -100,8 +95,8 @@ func (h *handlerPost) CreatePost(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image3 = cloudinarySecureURL[2]
-		post.ImagePublicID3 = cloudinaryPublicID[2]
+		post.Image3 = c.Get("cloudinarySecureURL").([]string)[2]
+		post.ImagePublicID3 = c.Get("cloudinaryPublicID").([]string)[2]
 	}
 	if request.Image4 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -109,8 +104,8 @@ func (h *handlerPost) CreatePost(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image4 = cloudinarySecureURL[3]
-		post.ImagePublicID4 = cloudinaryPublicID[3]
+		post.Image4 = c.Get("cloudinarySecureURL").([]string)[3]
+		post.ImagePublicID4 = c.Get("cloudinaryPublicID").([]string)[3]
 	}
 	if request.Image5 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -118,8 +113,8 @@ func (h *handlerPost) CreatePost(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image5 = cloudinarySecureURL[4]
-		post.ImagePublicID5 = cloudinaryPublicID[4]
+		post.Image5 = c.Get("cloudinarySecureURL").([]string)[4]
+		post.ImagePublicID5 = c.Get("cloudinaryPublicID").([]string)[4]
 	}
 
 	post.UserID = int(userId)
@@ -179,18 +174,14 @@ func (h *handlerPost) UpdatePost(c echo.Context) error {
 		post.Description = request.Description
 	}
 
-	var cloudinarySecureURL []string
-	var cloudinaryPublicID []string
-	json.Unmarshal([]byte(c.Get("cloudinarySecureURL").(string)), &cloudinarySecureURL)
-	json.Unmarshal([]byte(c.Get("cloudinaryPublicID").(string)), &cloudinaryPublicID)
 	if request.Image1 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 		// resp, err := cld.Upload.Upload(ctx, filepath[0], uploader.UploadParams{Folder: "waysgallery"})
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image1 = cloudinarySecureURL[0]
-		post.ImagePublicID1 = cloudinaryPublicID[0]
+		post.Image1 = c.Get("cloudinarySecureURL").([]string)[0]
+		post.ImagePublicID1 = c.Get("cloudinaryPublicID").([]string)[0]
 	}
 	if request.Image2 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -198,8 +189,8 @@ func (h *handlerPost) UpdatePost(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image2 = cloudinarySecureURL[1]
-		post.ImagePublicID2 = cloudinaryPublicID[1]
+		post.Image2 = c.Get("cloudinarySecureURL").([]string)[1]
+		post.ImagePublicID2 = c.Get("cloudinaryPublicID").([]string)[1]
 	}
 	if request.Image3 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -207,8 +198,8 @@ func (h *handlerPost) UpdatePost(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image3 = cloudinarySecureURL[2]
-		post.ImagePublicID3 = cloudinaryPublicID[2]
+		post.Image3 = c.Get("cloudinarySecureURL").([]string)[2]
+		post.ImagePublicID3 = c.Get("cloudinaryPublicID").([]string)[2]
 	}
 	if request.Image4 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -216,8 +207,8 @@ func (h *handlerPost) UpdatePost(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image4 = cloudinarySecureURL[3]
-		post.ImagePublicID4 = cloudinaryPublicID[3]
+		post.Image4 = c.Get("cloudinarySecureURL").([]string)[3]
+		post.ImagePublicID4 = c.Get("cloudinaryPublicID").([]string)[3]
 	}
 	if request.Image5 != "" {
 		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
@@ -225,8 +216,8 @@ func (h *handlerPost) UpdatePost(c echo.Context) error {
 		// if err != nil {
 		// 	fmt.Println(err.Error())
 		// }
-		post.Image5 = cloudinarySecureURL[4]
-		post.ImagePublicID5 = cloudinaryPublicID[4]
+		post.Image5 = c.Get("cloudinarySecureURL").([]string)[4]
+		post.ImagePublicID5 = c.Get("cloudinaryPublicID").([]string)[4]
 	}
 
 	post.UpdatedAt = time.Now()
