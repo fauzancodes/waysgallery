@@ -3,7 +3,7 @@ package profilesdto
 type ProfileRequest struct {
 	Name     string `json:"name" form:"name" validate:"required"`
 	Greeting string `json:"greeting" form:"greeting" validate:"required"`
-	Image    string `json:"image" form:"image" validate:"required"`
+	Image    string `json:"image" form:"image"`
 }
 
 type ProfileResponse struct {
