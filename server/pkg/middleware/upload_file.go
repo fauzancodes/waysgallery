@@ -1,11 +1,14 @@
 package middleware
 
 import (
-	"io"
-	"io/ioutil"
+	"context"
 	"net/http"
+	"os"
 	"path/filepath"
+	dto "waysgallery/dto/result"
 
+	"github.com/cloudinary/cloudinary-go/v2"
+	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/labstack/echo/v4"
 )
 
@@ -38,19 +41,33 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 			}
 			defer src.Close()
 
-			tempFile, err := ioutil.TempFile("uploads", "image-*.png")
+			// tempFile, err := ioutil.TempFile("uploads", "image-*.png")
+			// if err != nil {
+			// 	return c.JSON(http.StatusBadRequest, err)
+			// }
+			// defer tempFile.Close()
+
+			// if _, err = io.Copy(tempFile, src); err != nil {
+			// 	return c.JSON(http.StatusBadRequest, err)
+			// }
+
+			// data := tempFile.Name()
+
+			// c.Set("dataFile", data)
+
+			var ctx = context.Background()
+			var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+			var API_KEY = os.Getenv("API_KEY")
+			var API_SECRET = os.Getenv("API_SECRET")
+			cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+			resp, err := cld.Upload.Upload(ctx, src, uploader.UploadParams{Folder: "waysgallery"})
 			if err != nil {
-				return c.JSON(http.StatusBadRequest, err)
-			}
-			defer tempFile.Close()
-
-			if _, err = io.Copy(tempFile, src); err != nil {
-				return c.JSON(http.StatusBadRequest, err)
+				return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 			}
 
-			data := tempFile.Name()
+			c.Set("cloudinarySecureURL", resp.SecureURL)
+			c.Set("cloudinaryPublicID", resp.PublicID)
 
-			c.Set("dataFile", data)
 			return next(c)
 		} else {
 			return c.JSON(http.StatusBadRequest, "The file extension is wrong. Allowed file extensions are images (.png, .jpg, .jpeg, .webp)")

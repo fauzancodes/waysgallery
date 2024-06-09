@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"context"
-	"os"
 	"strconv"
 	artsdto "waysgallery/dto/arts"
 	dto "waysgallery/dto/result"
@@ -11,8 +9,6 @@ import (
 
 	"net/http"
 
-	"github.com/cloudinary/cloudinary-go/v2"
-	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/labstack/echo/v4"
 )
@@ -48,21 +44,21 @@ func (h *handlerArt) GetArt(c echo.Context) error {
 func (h *handlerArt) CreateArt(c echo.Context) error {
 	userLogin := c.Get("userLogin")
 	userId := userLogin.(jwt.MapClaims)["id"].(float64)
-	filepath := c.Get("dataFile").(string)
+	// filepath := c.Get("dataFile").(string)
 
-	var ctx = context.Background()
-	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
-	var API_KEY = os.Getenv("API_KEY")
-	var API_SECRET = os.Getenv("API_SECRET")
-	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
-	resp, err := cld.Upload.Upload(ctx, filepath, uploader.UploadParams{Folder: "waysgallery"})
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
-	}
+	// var ctx = context.Background()
+	// var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+	// var API_KEY = os.Getenv("API_KEY")
+	// var API_SECRET = os.Getenv("API_SECRET")
+	// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+	// resp, err := cld.Upload.Upload(ctx, filepath, uploader.UploadParams{Folder: "waysgallery"})
+	// if err != nil {
+	// 	return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
+	// }
 
 	art := models.WaysGalleryArt{
-		Image:         resp.SecureURL,
-		ImagePublicID: resp.PublicID,
+		Image:         c.Get("cloudinarySecureURL").(string),
+		ImagePublicID: c.Get("cloudinaryPublicID").(string),
 		ProfileID:     int(userId),
 	}
 	data, err := h.ArtRepository.CreateArt(art)

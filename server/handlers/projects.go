@@ -1,19 +1,14 @@
 package handlers
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
-	"os"
 	"strconv"
 	projectsdto "waysgallery/dto/projects"
 	dto "waysgallery/dto/result"
 	"waysgallery/models"
 	"waysgallery/repositories"
 
-	"context"
-
-	"github.com/cloudinary/cloudinary-go/v2"
-	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/labstack/echo/v4"
 )
 
@@ -48,71 +43,76 @@ func (h *handlerProject) GetProject(c echo.Context) error {
 
 func (h *handlerProject) CreateProject(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("order_id"))
-	filepath := c.Get("dataFiles").([]string)
+	// filepath := c.Get("dataFiles").([]string)
 
 	request := projectsdto.ProjectRequest{
 		Description: c.FormValue("description"),
-		Image1:      filepath[0],
-		Image2:      filepath[1],
-		Image3:      filepath[2],
-		Image4:      filepath[3],
-		Image5:      filepath[4],
+		// Image1:      filepath[0],
+		// Image2:      filepath[1],
+		// Image3:      filepath[2],
+		// Image4:      filepath[3],
+		// Image5:      filepath[4],
 	}
 
 	var project models.WaysGalleryProject
 
-	var ctx = context.Background()
-	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
-	var API_KEY = os.Getenv("API_KEY")
-	var API_SECRET = os.Getenv("API_SECRET")
+	// var ctx = context.Background()
+	// var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+	// var API_KEY = os.Getenv("API_KEY")
+	// var API_SECRET = os.Getenv("API_SECRET")
 
 	if request.Description != "" {
 		project.Description = request.Description
 	}
+
+	var cloudinarySecureURL []string
+	var cloudinaryPublicID []string
+	json.Unmarshal([]byte(c.Get("cloudinarySecureURL").(string)), &cloudinarySecureURL)
+	json.Unmarshal([]byte(c.Get("cloudinaryPublicID").(string)), &cloudinaryPublicID)
 	if request.Image1 != "" {
-		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
-		resp, err := cld.Upload.Upload(ctx, filepath[0], uploader.UploadParams{Folder: "waysgallery"})
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-		project.Image1 = resp.SecureURL
-		project.ImagePublicID1 = resp.PublicID
+		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+		// resp, err := cld.Upload.Upload(ctx, filepath[0], uploader.UploadParams{Folder: "waysgallery"})
+		// if err != nil {
+		// 	fmt.Println(err.Error())
+		// }
+		project.Image1 = cloudinarySecureURL[0]
+		project.ImagePublicID1 = cloudinaryPublicID[0]
 	}
 	if request.Image2 != "" {
-		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
-		resp, err := cld.Upload.Upload(ctx, filepath[1], uploader.UploadParams{Folder: "waysgallery"})
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-		project.Image2 = resp.SecureURL
-		project.ImagePublicID2 = resp.PublicID
+		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+		// resp, err := cld.Upload.Upload(ctx, filepath[1], uploader.UploadParams{Folder: "waysgallery"})
+		// if err != nil {
+		// 	fmt.Println(err.Error())
+		// }
+		project.Image2 = cloudinarySecureURL[1]
+		project.ImagePublicID2 = cloudinaryPublicID[1]
 	}
 	if request.Image3 != "" {
-		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
-		resp, err := cld.Upload.Upload(ctx, filepath[2], uploader.UploadParams{Folder: "waysgallery"})
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-		project.Image3 = resp.SecureURL
-		project.ImagePublicID3 = resp.PublicID
+		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+		// resp, err := cld.Upload.Upload(ctx, filepath[2], uploader.UploadParams{Folder: "waysgallery"})
+		// if err != nil {
+		// 	fmt.Println(err.Error())
+		// }
+		project.Image3 = cloudinarySecureURL[2]
+		project.ImagePublicID3 = cloudinaryPublicID[2]
 	}
 	if request.Image4 != "" {
-		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
-		resp, err := cld.Upload.Upload(ctx, filepath[3], uploader.UploadParams{Folder: "waysgallery"})
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-		project.Image4 = resp.SecureURL
-		project.ImagePublicID4 = resp.PublicID
+		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+		// resp, err := cld.Upload.Upload(ctx, filepath[3], uploader.UploadParams{Folder: "waysgallery"})
+		// if err != nil {
+		// 	fmt.Println(err.Error())
+		// }
+		project.Image4 = cloudinarySecureURL[3]
+		project.ImagePublicID4 = cloudinaryPublicID[3]
 	}
 	if request.Image5 != "" {
-		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
-		resp, err := cld.Upload.Upload(ctx, filepath[4], uploader.UploadParams{Folder: "waysgallery"})
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-		project.Image5 = resp.SecureURL
-		project.ImagePublicID5 = resp.PublicID
+		// cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+		// resp, err := cld.Upload.Upload(ctx, filepath[4], uploader.UploadParams{Folder: "waysgallery"})
+		// if err != nil {
+		// 	fmt.Println(err.Error())
+		// }
+		project.Image5 = cloudinarySecureURL[4]
+		project.ImagePublicID5 = cloudinaryPublicID[4]
 	}
 	project.OrderID = id
 
