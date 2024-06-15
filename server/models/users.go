@@ -18,7 +18,7 @@ type WaysGalleryUser struct {
 
 type WaysGalleryUserProfileResponse struct {
 	ID     int    `json:"id" gorm:"primary_key:auto_increment"`
-	UserID int    `json:"user_id" gorm:"index"`
+	UserID int    `json:"user_id" gorm:"-"`
 	Name   string `json:"name" gorm:"type: varchar(255)"`
 	Email  string `json:"email" gorm:"type: varchar(255)"`
 }
