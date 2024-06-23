@@ -44,7 +44,8 @@ func (h *handlerArt) GetArt(c echo.Context) error {
 func (h *handlerArt) CreateArt(c echo.Context) error {
 	userLogin := c.Get("userLogin")
 	userId := userLogin.(jwt.MapClaims)["id"].(float64)
-	// filepath := c.Get("dataFile").(string)
+	filepath := c.Get("cloudinarySecureURL").(string)
+	publicID := c.Get("cloudinaryPublicID").(string)
 
 	// var ctx = context.Background()
 	// var CLOUD_NAME = os.Getenv("CLOUD_NAME")
@@ -57,8 +58,8 @@ func (h *handlerArt) CreateArt(c echo.Context) error {
 	// }
 
 	art := models.WaysGalleryArt{
-		Image:         c.Get("cloudinarySecureURL").(string),
-		ImagePublicID: c.Get("cloudinaryPublicID").(string),
+		Image:         filepath,
+		ImagePublicID: publicID,
 		ProfileID:     int(userId),
 	}
 	data, err := h.ArtRepository.CreateArt(art)

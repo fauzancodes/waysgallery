@@ -44,14 +44,15 @@ func (h *handlerProfile) GetProfile(c echo.Context) error {
 }
 
 func (h *handlerProfile) UpdateProfile(c echo.Context) error {
-	// filepath := c.Get("dataFile").(string)
+	filepath := c.Get("cloudinarySecureURL").(string)
+	publicID := c.Get("cloudinaryPublicID").(string)
 	userLogin := c.Get("userLogin")
 	userId := userLogin.(jwt.MapClaims)["id"].(float64)
 
 	request := profilesdto.ProfileRequest{
 		Name:     c.FormValue("name"),
 		Greeting: c.FormValue("greeting"),
-		// Image:    filepath,
+		Image:    filepath,
 	}
 
 	// var ctx = context.Background()
@@ -77,9 +78,9 @@ func (h *handlerProfile) UpdateProfile(c echo.Context) error {
 		profile.Greeting = request.Greeting
 	}
 	if request.Image != "" {
-		profile.Image = c.Get("cloudinarySecureURL").(string)
+		profile.Image = request.Image
 	}
-	profile.ImagePublicID = c.Get("cloudinaryPublicID").(string)
+	profile.ImagePublicID = publicID
 	profile.UpdatedAt = time.Now()
 
 	data, err := h.ProfileRepository.UpdateProfile(profile)
